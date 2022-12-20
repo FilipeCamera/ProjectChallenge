@@ -20,13 +20,13 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@domain": [
-        "./src/core/domain/*"
+        "./src/domain/*"
       ],
       "@application": [
-        "./src/core/application/*"
+        "./src/application/*"
       ],
       "@infra": [
-        "./src/core/infra/*"
+        "./src/infra/*"
       ],
       "@test/*": [
         "./test/*"
