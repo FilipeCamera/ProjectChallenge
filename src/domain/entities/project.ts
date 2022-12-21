@@ -20,10 +20,11 @@ export class Project {
     data: Replace<
       IProjectData,
       {
-        links?: string;
         accepted?: Array<string>;
         like?: number;
         deslike?: number;
+        createdAt?: Date;
+        updatedAt?: Date;
       }
     >,
     id?: string
@@ -34,6 +35,8 @@ export class Project {
       like: data.like ?? 0,
       deslike: data.deslike ?? 0,
       accepted: data.accepted ?? null,
+      createdAt: data.createdAt ?? new Date(),
+      updatedAt: data.updatedAt ?? new Date(),
     };
   }
 

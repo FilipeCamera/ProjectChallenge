@@ -5,18 +5,18 @@ interface DetailsProps {
   description: string;
   details: string;
   tags: Array<string>;
-  links: string | null;
+  link: string | null;
 }
 
 export class Details {
   private data: DetailsProps;
 
-  constructor(data: Replace<DetailsProps, { links?: string }>) {
+  constructor(data: Replace<DetailsProps, { link?: string }>) {
     if (data.tags.length === 0) throw new Error('Tags not found.');
 
     this.data = {
       ...data,
-      links: data.links ?? null,
+      link: data.link ?? null,
     };
   }
 
@@ -45,7 +45,7 @@ export class Details {
   }
 
   public set tags(tags: Array<string>) {
-    if (tags.length === 0) throw new Error('tags not found.');
+    if (tags.length === 0) throw new Error('Tags not found.');
 
     this.data.tags = tags;
   }
@@ -54,11 +54,11 @@ export class Details {
     return this.data.tags;
   }
 
-  public set links(links: string) {
-    this.data.links = links ?? null;
+  public set link(links: string) {
+    this.data.link = links;
   }
 
-  public get links() {
-    return this.data.links;
+  public get link() {
+    return this.data.link;
   }
 }
