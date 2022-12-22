@@ -13,6 +13,12 @@ export class Details {
 
   constructor(data: Replace<DetailsProps, { link?: string }>) {
     if (data.tags.length === 0) throw new Error('Tags not found.');
+    if (!this.verifyTitleContentLength(data.title))
+      throw new Error('Title content length error.');
+    if (!this.verifyDescriptionContentLength(data.description))
+      throw new Error('Description content length error.');
+    if (!this.verifyDetailsContentLength(data.details))
+      throw new Error('Details content length error.');
 
     this.data = {
       ...data,
@@ -20,7 +26,23 @@ export class Details {
     };
   }
 
+  private verifyTitleContentLength(value: string): boolean {
+    return value.length > 12 && value.length < 255;
+  }
+
+  private verifyDescriptionContentLength(value: string): boolean {
+    return value.length > 8 && value.length < 650;
+  }
+
+  private verifyDetailsContentLength(value: string): boolean {
+    return value.length > 8 && value.length < 1024;
+  }
+
   public set title(title: string) {
+    const verified = this.verifyTitleContentLength(title);
+
+    if (!verified) throw new Error('Title content length error.');
+
     this.data.title = title;
   }
 
@@ -29,6 +51,10 @@ export class Details {
   }
 
   public set description(description: string) {
+    const verified = this.verifyDescriptionContentLength(description);
+
+    if (!verified) throw new Error('Description content length error.');
+
     this.data.description = description;
   }
 
@@ -37,6 +63,10 @@ export class Details {
   }
 
   public set details(details: string) {
+    const verified = this.verifyDetailsContentLength(details);
+
+    if (!verified) throw new Error('Details content length error.');
+
     this.data.details = details;
   }
 
