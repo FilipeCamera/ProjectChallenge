@@ -8,17 +8,27 @@ interface DetailsProps {
   link: string | null;
 }
 
+enum Tags {
+  back = 'Back-end',
+  front = 'Front-end',
+  ux = 'UX/UI Desing',
+}
+
 export class Details {
   private data: DetailsProps;
 
   constructor(data: Replace<DetailsProps, { link?: string }>) {
-    if (data.tags.length === 0) throw new Error('Tags not found.');
     if (!this.verifyTitleContentLength(data.title))
       throw new Error('Title content length error.');
+
     if (!this.verifyDescriptionContentLength(data.description))
       throw new Error('Description content length error.');
+
     if (!this.verifyDetailsContentLength(data.details))
       throw new Error('Details content length error.');
+
+    if (!this.verifyTagsContainValues(data.tags))
+      throw new Error('Tags do not have the expected values');
 
     this.data = {
       ...data,
@@ -27,15 +37,22 @@ export class Details {
   }
 
   private verifyTitleContentLength(value: string): boolean {
-    return value.length > 12 && value.length < 255;
+    return value.length > 12 && value.length <= 255;
   }
 
   private verifyDescriptionContentLength(value: string): boolean {
-    return value.length > 8 && value.length < 650;
+    return value.length > 8 && value.length <= 650;
   }
 
   private verifyDetailsContentLength(value: string): boolean {
-    return value.length > 8 && value.length < 1024;
+    return value.length > 8 && value.length <= 1024;
+  }
+  private verifyTagsContainValues(value: Array<string>): boolean {
+    return (
+      value.includes(Tags.back) ||
+      value.includes(Tags.front) ||
+      value.includes(Tags.ux)
+    );
   }
 
   public set title(title: string) {
@@ -75,7 +92,8 @@ export class Details {
   }
 
   public set tags(tags: Array<string>) {
-    if (tags.length === 0) throw new Error('Tags not found.');
+    if (!this.verifyTagsContainValues(tags))
+      throw new Error('Tags do not have the expected values');
 
     this.data.tags = tags;
   }
