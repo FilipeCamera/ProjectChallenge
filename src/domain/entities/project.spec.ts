@@ -6,10 +6,10 @@ describe('Project test', () => {
     const data = {
       isPrivate: false,
       content: new Details({
-        title: 'test',
-        description: 'test',
-        details: 'test',
-        tags: ['test'],
+        title: 'test_project_title',
+        description: 'test_project_description',
+        details: 'test_project_details',
+        tags: ['Back-end'],
       }),
     };
     const project = new Project(data);
@@ -21,10 +21,10 @@ describe('Project test', () => {
     const data = {
       isPrivate: true,
       content: new Details({
-        title: 'test',
-        description: 'test',
-        details: 'test',
-        tags: ['test'],
+        title: 'test_project_title',
+        description: 'test_project_description',
+        details: 'test_project_details',
+        tags: ['Back-end'],
       }),
     };
     const project = new Project(data);
@@ -35,10 +35,10 @@ describe('Project test', () => {
     const data = {
       isPrivate: false,
       content: new Details({
-        title: 'test',
-        description: 'test',
-        details: 'test',
-        tags: ['test'],
+        title: 'test_project_title',
+        description: 'test_project_description',
+        details: 'test_project_details',
+        tags: ['Back-end'],
       }),
     };
     const project = new Project(data);

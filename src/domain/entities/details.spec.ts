@@ -6,7 +6,7 @@ describe('Details Tests', () => {
       title: 'data_test_title',
       description: 'data_test_description',
       details: 'data_test_details',
-      tags: ['back-end'],
+      tags: ['Back-end'],
     };
 
     const details = new Details(data);
@@ -24,7 +24,7 @@ describe('Details Tests', () => {
 
     expect(() => {
       new Details(data);
-    }).toThrowError('Tags not found.');
+    }).toThrow('Tags do not have the expected values');
   });
 
   it('should return an error when setting an empty tag', () => {
@@ -32,12 +32,14 @@ describe('Details Tests', () => {
       title: 'data_test_title',
       description: 'data_test_description',
       details: 'data_test_details',
-      tags: [''],
+      tags: ['Back-end'],
     };
 
     const details = new Details(data);
 
-    expect(() => (details.tags = [])).toThrowError('Tags not found');
+    expect(() => (details.tags = [])).toThrow(
+      'Tags do not have the expected values'
+    );
   });
 
   it('should be verify link is null', () => {
@@ -45,7 +47,7 @@ describe('Details Tests', () => {
       title: 'data_test_title',
       description: 'data_test_description',
       details: 'data_test_details',
-      tags: [''],
+      tags: ['Back-end'],
     };
 
     const details = new Details(data);
@@ -58,12 +60,45 @@ describe('Details Tests', () => {
       title: 'data_test_title',
       description: 'data_test_description',
       details: 'data_test_details',
-      tags: [''],
+      tags: ['Front-end'],
       link: 'data_test_link',
     };
 
     const details = new Details(data);
 
     expect(details.link).not.toBeNull();
+  });
+  it('should return an error when the title is longer than 255 characters', () => {
+    expect(
+      () =>
+        new Details({
+          title: 'a'.repeat(256),
+          description: 'data_test_description',
+          details: 'data_test_details',
+          tags: ['Front-end'],
+        })
+    ).toThrow('Title content length error.');
+  });
+  it('should return an error when the description is longer than 650 characters', () => {
+    expect(
+      () =>
+        new Details({
+          title: 'data_test_title',
+          description: 'a'.repeat(651),
+          details: 'data_test_details',
+          tags: ['Front-end'],
+        })
+    ).toThrow('Description content length error.');
+  });
+  it('should return an error when the description is longer than 650 characters', () => {
+    expect(
+      () =>
+        new Details({
+          title: 'data_test_title',
+          description: 'data_test_description',
+          details: 'a'.repeat(1025),
+          tags: ['Front-end'],
+        })
+    ).toThrow('Details content length error.');
   });
 });
