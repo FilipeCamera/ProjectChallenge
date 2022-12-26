@@ -1,5 +1,5 @@
-import { User } from '@domain/entities/user';
+import { CreateUser } from '@domain/use-cases/create-user';
 
 export abstract class UserRepository {
-  abstract create(user: User): Promise<void>;
+  abstract create(data: CreateUser.request): Promise<CreateUser.response>;
 }
