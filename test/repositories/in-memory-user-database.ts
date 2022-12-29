@@ -12,4 +12,8 @@ export class MemoryUserRepository implements UserRepository {
 
     return user;
   }
+
+  async existByNickName(value: string): Promise<boolean> {
+    return this.users.map((user) => user.nickname === value).includes(true);
+  }
 }
