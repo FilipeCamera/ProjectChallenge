@@ -6,10 +6,8 @@ export interface IUserData {
   email: string;
   password: string;
   cargo: string;
-  social?: {
-    linkedin?: string;
-    github?: string;
-  } | null;
+  linkedin?: string | null;
+  github?: string | null;
   createdAt: Date;
   updatedAt: Date;
   canceledAt?: Date | null;
@@ -26,7 +24,8 @@ export class User {
     this._id = id ?? randomUUID();
     this.data = {
       ...data,
-      social: data.social ?? null,
+      linkedin: data.linkedin ?? null,
+      github: data.github ?? null,
       createdAt: data.createdAt ?? new Date(),
       updatedAt: data.updatedAt ?? new Date(),
     };
@@ -60,12 +59,19 @@ export class User {
     return this.data.password;
   }
 
-  public set social(social) {
-    this.data.social = social;
+  public set linkedIn(linkedIn) {
+    this.data.linkedin = linkedIn;
   }
 
-  public get social() {
-    return this.data.social;
+  public get linkedIn() {
+    return this.data.linkedin;
+  }
+  public set github(github) {
+    this.data.github = github;
+  }
+
+  public get github() {
+    return this.data.github;
   }
 
   public set cargo(cargo: string) {
