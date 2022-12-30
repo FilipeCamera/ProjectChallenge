@@ -1,7 +1,7 @@
 import { User } from './user';
 
 describe('User test', () => {
-  it('should be create user without social network', () => {
+  it('should be create user without linkedin and github', () => {
     const user = new User({
       nickname: 'test',
       email: 'test@email.com',
@@ -12,7 +12,8 @@ describe('User test', () => {
     });
 
     expect(user).toBeTruthy();
-    expect(user.social).toEqual(null);
+    expect(user.linkedIn).toEqual(null);
+    expect(user.github).toEqual(null);
   });
 
   it('should be create user only with linkedin', () => {
@@ -21,18 +22,14 @@ describe('User test', () => {
       email: 'test@email.com',
       password: '123456',
       cargo: 'dev',
-      social: {
-        linkedin: 'linkedin_test',
-      },
+      linkedin: 'linkedin_test',
       createdAt: new Date(),
       updatedAt: new Date(),
     });
 
     expect(user).toBeTruthy();
-    expect(user.social).toBeTruthy();
-    expect(user.social).toEqual(
-      expect.objectContaining({ linkedin: 'linkedin_test' })
-    );
+    expect(user.linkedIn).toBeTruthy();
+    expect(user.linkedIn).toEqual('linkedin_test');
   });
   it('should be create user only with github', () => {
     const user = new User({
@@ -40,18 +37,14 @@ describe('User test', () => {
       email: 'test@email.com',
       password: '123456',
       cargo: 'dev',
-      social: {
-        github: 'github_test',
-      },
+      github: 'github_test',
       createdAt: new Date(),
       updatedAt: new Date(),
     });
 
     expect(user).toBeTruthy();
-    expect(user.social).toBeTruthy();
-    expect(user.social).toEqual(
-      expect.objectContaining({ github: 'github_test' })
-    );
+    expect(user.github).toBeTruthy();
+    expect(user.github).toEqual('github_test');
   });
   it('should be create user only with linkedin and github', () => {
     const user = new User({
@@ -59,21 +52,16 @@ describe('User test', () => {
       email: 'test@email.com',
       password: '123456',
       cargo: 'dev',
-      social: {
-        linkedin: 'linkedin_test',
-        github: 'github_test',
-      },
+      linkedin: 'linkedin_test',
+      github: 'github_test',
       createdAt: new Date(),
       updatedAt: new Date(),
     });
 
     expect(user).toBeTruthy();
-    expect(user.social).toBeTruthy();
-    expect(user.social).toEqual(
-      expect.objectContaining({
-        linkedin: 'linkedin_test',
-        github: 'github_test',
-      })
-    );
+    expect(user.linkedIn).toBeTruthy();
+    expect(user.github).toBeTruthy();
+    expect(user.linkedIn).toEqual('linkedin_test');
+    expect(user.github).toEqual('github_test');
   });
 });
