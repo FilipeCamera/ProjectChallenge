@@ -1,6 +1,7 @@
 import { UserRepository } from '@data/repositories/user-repository';
 import { User } from '@domain/entities/user';
 import { CreateUser } from '@domain/use-cases/create-user';
+import { VerifyUser } from '@domain/use-cases/verify-user';
 
 export class MemoryUserRepository implements UserRepository {
   public users: User[] = [];
@@ -13,7 +14,9 @@ export class MemoryUserRepository implements UserRepository {
     return user;
   }
 
-  async existByNickName(value: string): Promise<boolean> {
-    return this.users.map((user) => user.nickname === value).includes(true);
+  async verifyNicknameOrEmail(data: VerifyUser.request): Promise<User> {
+    return this.users.find(
+      (user) => user.email === data.email || user.nickname === data.nickname
+    );
   }
 }
