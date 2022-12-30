@@ -1,1 +1,4 @@
-yarn jest --passWithNoTests
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+yarn test --passWithNoTests
