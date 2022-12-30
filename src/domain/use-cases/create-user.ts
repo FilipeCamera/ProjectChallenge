@@ -10,10 +10,8 @@ export namespace CreateUser {
     password: string;
     nickname: string;
     cargo: string;
-    social?: {
-      linkedin?: string;
-      github?: string;
-    };
+    linkedin?: string;
+    github?: string;
   };
 
   export type response = User;

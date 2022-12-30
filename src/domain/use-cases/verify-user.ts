@@ -9,5 +9,5 @@ export namespace VerifyUser {
     email?: string;
     nickname?: string;
   };
-  export type response = User;
+  export type response = User | null;
 }
