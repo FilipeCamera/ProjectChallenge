@@ -1,12 +1,27 @@
 import { MemoryUserRepository } from '@test/repositories/in-memory-user-database';
-import { DatabaseVerifyUserAuth } from './db-verify-user-auth';
+import { DatabaseVerifyUser } from './db-verify-user';
 import { DatabaseCreateUser } from './db-create-user';
 import { CreateUser } from '@domain/use-cases/create-user';
+import { randomUUID } from 'node:crypto';
+import { EncryptHash } from '@data/protocols/cryptograph';
+
+class EncryptMock implements EncryptHash {
+  hash: string = randomUUID();
+  pass: string;
+  async token(data: string): Promise<string> {
+    throw new Error('Method not implemented.');
+    return data;
+  }
+  async password(data: string): Promise<string> {
+    this.pass = data;
+    return this.hash;
+  }
+}
 
 describe('Database Verify User Test', () => {
   it('should be able to return a user when passing the email', async () => {
     const memoryRepo = new MemoryUserRepository();
-    const db = new DatabaseCreateUser(memoryRepo);
+    const db = new DatabaseCreateUser(memoryRepo, new EncryptMock());
 
     const data: CreateUser.request = {
       email: 'email_test_field',
@@ -16,7 +31,7 @@ describe('Database Verify User Test', () => {
     };
     await db.create(data);
 
-    const sut = new DatabaseVerifyUserAuth(memoryRepo);
+    const sut = new DatabaseVerifyUser(memoryRepo);
 
     const { email } = data;
 
@@ -29,7 +44,7 @@ describe('Database Verify User Test', () => {
   });
   it('should be able to return a user when passing the nickname', async () => {
     const memoryRepo = new MemoryUserRepository();
-    const db = new DatabaseCreateUser(memoryRepo);
+    const db = new DatabaseCreateUser(memoryRepo, new EncryptMock());
 
     const data: CreateUser.request = {
       email: 'email_test_field',
@@ -39,7 +54,7 @@ describe('Database Verify User Test', () => {
     };
     await db.create(data);
 
-    const sut = new DatabaseVerifyUserAuth(memoryRepo);
+    const sut = new DatabaseVerifyUser(memoryRepo);
 
     const { nickname } = data;
 
@@ -52,7 +67,7 @@ describe('Database Verify User Test', () => {
   });
   it('should be able to return an error when passing email or nickname not found', async () => {
     const memoryRepo = new MemoryUserRepository();
-    const db = new DatabaseCreateUser(memoryRepo);
+    const db = new DatabaseCreateUser(memoryRepo, new EncryptMock());
 
     const data: CreateUser.request = {
       email: 'email_test_field',
@@ -62,7 +77,7 @@ describe('Database Verify User Test', () => {
     };
     await db.create(data);
 
-    const sut = new DatabaseVerifyUserAuth(memoryRepo);
+    const sut = new DatabaseVerifyUser(memoryRepo);
 
     await expect(
       async () => await sut.exec({ email: 'test', nickname: 'test' })

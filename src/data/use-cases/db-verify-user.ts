@@ -1,7 +1,7 @@
 import { UserRepository } from '@data/repositories/user-repository';
 import { VerifyUser } from '@domain/use-cases/verify-user';
 
-export class DatabaseVerifyUserAuth implements VerifyUser {
+export class DatabaseVerifyUser implements VerifyUser {
   constructor(private readonly userRepository: UserRepository) {}
 
   async exec(data: VerifyUser.request): Promise<VerifyUser.response> {
