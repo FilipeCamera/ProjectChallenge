@@ -1,11 +1,26 @@
 import { MemoryUserRepository } from '@test/repositories/in-memory-user-database';
 import { DatabaseCreateUser } from './db-create-user';
 import { CreateUser } from '@domain/use-cases/create-user';
+import { randomUUID } from 'node:crypto';
+import { EncryptHash } from '@data/protocols/cryptograph';
+
+class EncryptMock implements EncryptHash {
+  hash: string = randomUUID();
+  pass: string;
+  async token(data: string): Promise<string> {
+    throw new Error('Method not implemented.');
+    return data;
+  }
+  async password(data: string): Promise<string> {
+    this.pass = data;
+    return this.hash;
+  }
+}
 
 describe('Database create user test', () => {
   it('should be able create user in database', async () => {
     const memoryRepository = new MemoryUserRepository();
-    const db = new DatabaseCreateUser(memoryRepository);
+    const db = new DatabaseCreateUser(memoryRepository, new EncryptMock());
 
     const data: CreateUser.request = {
       email: 'email_test_field',
@@ -20,7 +35,7 @@ describe('Database create user test', () => {
   });
   it('should be verify user exist in database', async () => {
     const memoryRepository = new MemoryUserRepository();
-    const db = new DatabaseCreateUser(memoryRepository);
+    const db = new DatabaseCreateUser(memoryRepository, new EncryptMock());
 
     const data: CreateUser.request = {
       email: 'email_test_field',
@@ -40,7 +55,7 @@ describe('Database create user test', () => {
   it('should return an error when create user with nickname that already exists', async () => {
     const memoryRepository = new MemoryUserRepository();
 
-    const db = new DatabaseCreateUser(memoryRepository);
+    const db = new DatabaseCreateUser(memoryRepository, new EncryptMock());
 
     const data: CreateUser.request = {
       email: 'email_test_field',
