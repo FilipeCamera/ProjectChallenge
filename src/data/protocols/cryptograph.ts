@@ -1,14 +1,16 @@
-export abstract class DecryptHash {
-  abstract token(hash: string): Promise<string>;
+export type Payload = {
+  nickname: string;
+  sub: string;
+};
+
+export abstract class Hash {
+  abstract generateToken(payload: Payload): Promise<string>;
+  abstract decodeToken(token: string): Promise<Payload>;
 }
 
-export abstract class EncryptHash {
-  abstract token(data: string): Promise<string>;
-  abstract password(data: string): Promise<string>;
-}
-
-export abstract class CompareHash {
-  abstract comparePassword(
+export abstract class HashPassword {
+  abstract criptograph(data: string): Promise<string>;
+  abstract compare(
     hashPassword: string,
     plainPassword: string
   ): Promise<boolean>;

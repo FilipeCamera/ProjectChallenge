@@ -1,53 +1,19 @@
 import { MemoryUserRepository } from '@test/repositories/in-memory-user-database';
 import { DatabaseAuthUser } from './db-auth-user';
-import { CompareHash, EncryptHash } from '@data/protocols/cryptograph';
-import { randomUUID } from 'node:crypto';
 import { DatabaseCreateUser } from './db-create-user';
-
-class EncryptMock implements EncryptHash {
-  hash: string = randomUUID();
-  pass: string;
-  _token: string = randomUUID();
-  attributes: string;
-  async token(data: string): Promise<string> {
-    this.attributes = data;
-    return this._token;
-  }
-  async password(data: string): Promise<string> {
-    this.pass = data;
-    return this.hash;
-  }
-}
-
-class CompareMock implements CompareHash {
-  plain: string;
-  hash: string;
-  isValid: boolean;
-
-  constructor(isValid?: boolean) {
-    this.isValid = isValid ?? false;
-  }
-  async comparePassword(
-    hashPassword: string,
-    plainPassword: string
-  ): Promise<boolean> {
-    this.hash = hashPassword;
-    this.plain = plainPassword;
-    return this.isValid;
-  }
-}
+import { PasswordCrypto, TokenHash } from '@test/protocols/cryptograph-mocks';
 
 describe('Database User Auth Test', () => {
   it('must be able to do user authentication', async () => {
     const inMemoryRepository = new MemoryUserRepository();
     const db = new DatabaseAuthUser(
       inMemoryRepository,
-      new CompareMock(true),
-      new EncryptMock()
+      new PasswordCrypto(true),
+      new TokenHash()
     );
     const db_create = new DatabaseCreateUser(
       inMemoryRepository,
-      new EncryptMock()
+      new PasswordCrypto(true)
     );
 
     const data = {
@@ -71,12 +37,12 @@ describe('Database User Auth Test', () => {
     const inMemoryRepository = new MemoryUserRepository();
     const db = new DatabaseAuthUser(
       inMemoryRepository,
-      new CompareMock(true),
-      new EncryptMock()
+      new PasswordCrypto(true),
+      new TokenHash()
     );
     const db_create = new DatabaseCreateUser(
       inMemoryRepository,
-      new EncryptMock()
+      new PasswordCrypto(true)
     );
 
     const data = {
@@ -100,12 +66,12 @@ describe('Database User Auth Test', () => {
     const inMemoryRepository = new MemoryUserRepository();
     const db = new DatabaseAuthUser(
       inMemoryRepository,
-      new CompareMock(),
-      new EncryptMock()
+      new PasswordCrypto(false),
+      new TokenHash()
     );
     const db_create = new DatabaseCreateUser(
       inMemoryRepository,
-      new EncryptMock()
+      new PasswordCrypto(true)
     );
 
     const data = {

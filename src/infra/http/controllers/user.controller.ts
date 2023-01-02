@@ -1,6 +1,7 @@
 import { DatabaseCreateUser } from '@data/use-cases/db-create-user';
 import { Body, Controller, Post } from '@nestjs/common';
 import { CreateUserBody } from '../dtos/create-user-body';
+import { UserResponse } from '../dtos/response-user';
 
 @Controller('users')
 export class UserController {
@@ -19,6 +20,15 @@ export class UserController {
       github,
     });
 
-    return { user };
+    return new UserResponse(
+      user.id,
+      user.nickname,
+      user.email,
+      user.cargo,
+      user.linkedIn,
+      user.github,
+      user.createdAt,
+      user.updatedAt
+    );
   }
 }

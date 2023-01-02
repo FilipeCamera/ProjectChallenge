@@ -1,13 +1,13 @@
 import { CreateUser } from '@domain/use-cases/create-user';
 import { UserRepository } from '../repositories/user-repository';
 import { Injectable } from '@nestjs/common';
-import { EncryptHash } from '@data/protocols/cryptograph';
+import { HashPassword } from '@data/protocols/cryptograph';
 
 @Injectable()
 export class DatabaseCreateUser implements CreateUser {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly encryptHash: EncryptHash
+    private readonly hashPassword: HashPassword
   ) {}
 
   async create(data: CreateUser.request): Promise<CreateUser.response> {
@@ -20,7 +20,7 @@ export class DatabaseCreateUser implements CreateUser {
 
     if (!!isUserExist) throw new Error('Email or nickname already in use');
 
-    data.password = await this.encryptHash.password(data.password);
+    data.password = await this.hashPassword.criptograph(data.password);
 
     const user = this.userRepository.create(data);
 
