@@ -1,6 +1,7 @@
 import { Replace } from '@helpers/replace';
 import { randomUUID } from 'node:crypto';
 import { Details } from './details';
+import { User } from './user';
 
 export interface IProjectData {
   isPrivate: boolean;
@@ -15,6 +16,7 @@ export interface IProjectData {
 export class Project {
   private _id: string;
   private data: IProjectData;
+  private _user: User;
 
   constructor(
     data: Replace<
@@ -27,9 +29,11 @@ export class Project {
         updatedAt?: Date;
       }
     >,
+    user: User,
     id?: string
   ) {
     this._id = id ?? randomUUID();
+    this._user = user;
     this.data = {
       ...data,
       like: data.like ?? 0,
@@ -42,6 +46,14 @@ export class Project {
 
   public get id() {
     return this._id;
+  }
+
+  public get user() {
+    return this._user;
+  }
+
+  public get content() {
+    return this.data.content;
   }
 
   public set isPrivate(isPrivate: boolean) {
