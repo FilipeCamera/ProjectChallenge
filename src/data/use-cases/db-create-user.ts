@@ -11,15 +11,6 @@ export class DatabaseCreateUser implements CreateUser {
   ) {}
 
   async create(data: CreateUser.request): Promise<CreateUser.response> {
-    const { email, nickname } = data;
-
-    const isUserExist = await this.userRepository.verifyNicknameOrEmail({
-      email,
-      nickname,
-    });
-
-    if (!!isUserExist) throw new Error('Email or nickname already in use');
-
     data.password = await this.hashPassword.criptograph(data.password);
 
     const user = this.userRepository.create(data);
