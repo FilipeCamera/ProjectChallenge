@@ -1,6 +1,6 @@
 import { Replace } from '@helpers/replace';
 
-interface DetailsProps {
+export interface DetailsProps {
   title: string;
   description: string;
   details: string;
