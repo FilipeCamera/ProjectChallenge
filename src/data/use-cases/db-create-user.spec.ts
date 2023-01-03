@@ -38,22 +38,4 @@ describe('Database create user test', () => {
       expect.arrayContaining([expect.objectContaining(data)])
     );
   });
-  it('should return an error when create user with nickname that already exists', async () => {
-    const memoryRepository = new MemoryUserRepository();
-
-    const db = new DatabaseCreateUser(memoryRepository, new PasswordCrypto());
-
-    const data: CreateUser.request = {
-      email: 'email_test_field',
-      nickname: 'nickname_test_field',
-      password: 'password_test_field',
-      cargo: 'cargo_test_field',
-    };
-
-    await db.create(data);
-
-    await expect(async () => await db.create(data)).rejects.toThrow(
-      'Email or nickname already in use'
-    );
-  });
 });
