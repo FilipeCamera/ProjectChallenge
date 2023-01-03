@@ -1,13 +1,11 @@
+import { User } from '@domain/entities/user';
+
 export interface AuthUser {
-  login(data: AuthUser.request): Promise<AuthUser.response>;
+  login(user: AuthUser.request): Promise<AuthUser.response>;
 }
 
 export namespace AuthUser {
-  export type request = {
-    nickname?: string;
-    email?: string;
-    password: string;
-  };
+  export type request = User;
 
   export type response = {
     token: string;
