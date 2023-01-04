@@ -21,6 +21,7 @@ export class UserResponse {
     this.id = id;
     this.nickname = nickname;
     this.email = email;
+    this.cargo = cargo;
     this.linkedin = linkedin;
     this.github = github;
     this.createdAt = createdAt;
