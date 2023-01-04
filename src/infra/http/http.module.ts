@@ -8,6 +8,9 @@ import { DatabaseVerifyUserExist } from '@data/use-cases/db-verify-user-exist';
 import { DatabaseVerifyNickOrEmailInUse } from '@data/use-cases/db-verify-nick-or-email-in-use';
 import { DatabaseComparePassword } from '@data/use-cases/db-compare-password';
 import { ProtocolModule } from '@infra/protocols/protocol.module';
+import { DatabaseReadAllUser } from '@data/use-cases/db-read-all-user';
+import { DatabaseReadSpecificUser } from '@data/use-cases/db-read-specific-user';
+import { DatabaseUpdateUser } from '@data/use-cases/db-update-user';
 
 @Module({
   imports: [DatabaseModule, ProtocolModule],
@@ -18,6 +21,9 @@ import { ProtocolModule } from '@infra/protocols/protocol.module';
     DatabaseVerifyUserExist,
     DatabaseVerifyNickOrEmailInUse,
     DatabaseComparePassword,
+    DatabaseReadAllUser,
+    DatabaseReadSpecificUser,
+    DatabaseUpdateUser,
   ],
 })
 export class HttpModule {}
