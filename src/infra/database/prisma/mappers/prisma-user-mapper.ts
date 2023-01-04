@@ -18,4 +18,23 @@ export class PrismaUserMapper {
       raw.id
     );
   }
+  static toDomainUsers(raw: Users[]): User[] {
+    return raw.map(
+      (user) =>
+        new User(
+          {
+            nickname: user.nickname,
+            password: user.password,
+            email: user.email,
+            cargo: user.cargo,
+            linkedin: user.linkedin,
+            github: user.github,
+            canceledAt: user.canceledAt,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
+          },
+          user.id
+        )
+    );
+  }
 }
