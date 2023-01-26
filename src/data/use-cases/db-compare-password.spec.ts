@@ -18,7 +18,7 @@ describe('Database Compare Password Test', () => {
       password: 'password_test_field',
       cargo: 'cargo_test_field',
     };
-    const user = await db_create.create(data);
+    const user = await db_create.exec(data);
 
     const valid = await db.compare({
       hashPassword: user.password,
@@ -41,7 +41,8 @@ describe('Database Compare Password Test', () => {
       password: 'password_test_field',
       cargo: 'cargo_test_field',
     };
-    const user = await db_create.create(data);
+
+    const user = await db_create.exec(data);
 
     await expect(
       async () =>

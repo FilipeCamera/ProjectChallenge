@@ -14,7 +14,7 @@ describe('Database create user test', () => {
       password: 'password_test_field',
       cargo: 'cargo_test_field',
     };
-    const sut = await db.create(data);
+    const sut = await db.exec(data);
 
     expect(sut).toBeTruthy();
     expect(memoryRepository.users).toHaveLength(1);
@@ -29,7 +29,7 @@ describe('Database create user test', () => {
       password: 'password_test_field',
       cargo: 'cargo_test_field',
     };
-    await db.create(data);
+    await db.exec(data);
 
     const { users } = memoryRepository;
 

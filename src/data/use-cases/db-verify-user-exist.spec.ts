@@ -15,7 +15,7 @@ describe('Database Verify User Test', () => {
       password: 'password_test_field',
       cargo: 'cargo_test_field',
     };
-    await db.create(data);
+    await db.exec(data);
 
     const sut = new DatabaseVerifyUserExist(memoryRepo);
 
@@ -38,7 +38,7 @@ describe('Database Verify User Test', () => {
       password: 'password_test_field',
       cargo: 'cargo_test_field',
     };
-    await db.create(data);
+    await db.exec(data);
 
     const sut = new DatabaseVerifyUserExist(memoryRepo);
 
@@ -61,7 +61,7 @@ describe('Database Verify User Test', () => {
       password: 'password_test_field',
       cargo: 'cargo_test_field',
     };
-    await db.create(data);
+    await db.exec(data);
 
     const sut = new DatabaseVerifyUserExist(memoryRepo);
 

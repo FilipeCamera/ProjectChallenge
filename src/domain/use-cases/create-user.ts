@@ -1,7 +1,7 @@
 import { User } from '@domain/entities/user';
 
 export interface CreateUser {
-  create(data: CreateUser.request): Promise<CreateUser.response>;
+  exec(data: CreateUser.request): Promise<CreateUser.response>;
 }
 
 export namespace CreateUser {

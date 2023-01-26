@@ -24,7 +24,7 @@ export class UserController {
 
     await this.dbVerifyNickOrEmailInUse.exec({ nickname, email });
 
-    const user = await this.dbCreateUser.create({
+    const user = await this.dbCreateUser.exec({
       nickname,
       email,
       password,

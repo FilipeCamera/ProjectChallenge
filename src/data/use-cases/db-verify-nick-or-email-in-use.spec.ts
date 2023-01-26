@@ -16,7 +16,7 @@ describe('Database verify nickname or email test', () => {
       password: 'password_test_field',
       cargo: 'cargo_test_field',
     };
-    await db.create(data);
+    await db.exec(data);
     const sut = new DatabaseVerifyNickOrEmailInUse(memoryDb);
 
     await expect(

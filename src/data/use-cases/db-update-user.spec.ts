@@ -17,7 +17,7 @@ describe('Update User Test', () => {
       password: 'password_test_field',
       cargo: 'cargo_test_field',
     };
-    await db.create(data);
+    await db.exec(data);
   });
   it('should be able update user', async () => {
     const db = new DatabaseUpdateUser(memoryRepository);

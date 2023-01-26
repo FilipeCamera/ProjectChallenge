@@ -10,7 +10,7 @@ export class DatabaseCreateUser implements CreateUser {
     private readonly hashPassword: HashPassword
   ) {}
 
-  async create(data: CreateUser.request): Promise<CreateUser.response> {
+  async exec(data: CreateUser.request): Promise<CreateUser.response> {
     data.password = await this.hashPassword.criptograph(data.password);
 
     const user = this.userRepository.create(data);

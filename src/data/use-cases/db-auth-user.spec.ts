@@ -18,7 +18,7 @@ describe('Database User Auth Test', () => {
       password: 'password_test_field',
       cargo: 'cargo_test_field',
     };
-    const user = await db_create.create(data);
+    const user = await db_create.exec(data);
 
     const token = await db.login(user);
 

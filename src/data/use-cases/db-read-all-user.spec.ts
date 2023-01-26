@@ -27,9 +27,9 @@ describe('Database All Read User Test', () => {
       password: 'password_test_field',
       cargo: 'cargo_test_field',
     };
-    await db.create(data1);
-    await db.create(data2);
-    await db.create(data3);
+    await db.exec(data1);
+    await db.exec(data2);
+    await db.exec(data3);
 
     const users = await readDb.exec();
 

@@ -27,9 +27,9 @@ describe('Database Specific Read User Test', () => {
       password: 'password_test_field',
       cargo: 'cargo_test_field',
     };
-    const user = await db.create(data1);
-    await db.create(data2);
-    await db.create(data3);
+    const user = await db.exec(data1);
+    await db.exec(data2);
+    await db.exec(data3);
 
     const sut = await readDb.exec({ id: user.id });
 
