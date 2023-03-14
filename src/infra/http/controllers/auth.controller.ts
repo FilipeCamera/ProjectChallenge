@@ -18,7 +18,7 @@ export class AuthController {
 
     const user = await this.dbVerifyUserExist.exec({ nickname, email });
 
-    await this.dbComparePassword.compare({
+    await this.dbComparePassword.exec({
       hashPassword: user.password,
       plainPassword: password,
     });

@@ -1,5 +1,5 @@
 export interface ComparePasswordUser {
-  compare(
+  exec(
     data: ComparePasswordUser.request
   ): Promise<ComparePasswordUser.response>;
 }

@@ -6,7 +6,7 @@ import { Injectable } from '@nestjs/common';
 export class DatabaseComparePassword implements ComparePasswordUser {
   constructor(private readonly hashPassword: HashPassword) {}
 
-  async compare({
+  async exec({
     hashPassword,
     plainPassword,
   }: ComparePasswordUser.request): Promise<ComparePasswordUser.response> {

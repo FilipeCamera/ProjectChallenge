@@ -20,7 +20,7 @@ describe('Database Compare Password Test', () => {
     };
     const user = await db_create.exec(data);
 
-    const valid = await db.compare({
+    const valid = await db.exec({
       hashPassword: user.password,
       plainPassword: data.password,
     });
@@ -46,7 +46,7 @@ describe('Database Compare Password Test', () => {
 
     await expect(
       async () =>
-        await db.compare({ hashPassword: user.password, plainPassword: '123' })
+        await db.exec({ hashPassword: user.password, plainPassword: '123' })
     ).rejects.toThrow('E-mail or nickname or password is incorrect.');
   });
 });
