@@ -33,16 +33,7 @@ export class UserController {
       github,
     });
 
-    return new UserResponse(
-      user.id,
-      user.nickname,
-      user.email,
-      user.cargo,
-      user.linkedIn,
-      user.github,
-      user.createdAt,
-      user.updatedAt
-    );
+    return new UserResponse(user);
   }
 
   @Get(':id?')
@@ -50,31 +41,10 @@ export class UserController {
     if (!!id) {
       const user = await this.dbReadSpecificUser.exec({ id });
 
-      return new UserResponse(
-        user.id,
-        user.nickname,
-        user.email,
-        user.cargo,
-        user.linkedIn,
-        user.github,
-        user.createdAt,
-        user.updatedAt
-      );
+      return new UserResponse(user);
     }
     const users = await this.dbReadAllUser.exec();
-    return users.map(
-      (user) =>
-        new UserResponse(
-          user.id,
-          user.nickname,
-          user.email,
-          user.cargo,
-          user.linkedIn,
-          user.github,
-          user.createdAt,
-          user.updatedAt
-        )
-    );
+    return users.map((user) => new UserResponse(user));
   }
 
   @Put(':id')
@@ -93,15 +63,6 @@ export class UserController {
       github,
     });
 
-    return new UserResponse(
-      user.id,
-      user.nickname,
-      user.email,
-      user.cargo,
-      user.linkedIn,
-      user.github,
-      user.createdAt,
-      user.updatedAt
-    );
+    return new UserResponse(user);
   }
 }
